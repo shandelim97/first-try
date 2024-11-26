@@ -4,7 +4,7 @@ branch-defaults:
     group_suffix: null
 global:
   application_name: first-try
-  branch: default
+  branch: null
   default_ec2_keyname: first-try-keypair
   default_platform: Node.js 20 running on 64bit Amazon Linux 2023
   default_region: ap-southeast-2
@@ -13,6 +13,6 @@ global:
   platform_name: null
   platform_version: null
   profile: eb-cli
-  repository: master
+  repository: null
   sc: null
   workspace_type: Application
