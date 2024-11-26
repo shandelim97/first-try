@@ -1,0 +1,68 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["views", "relationJoins"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Chat {
+  id              String            @id @default(uuid())
+  creationDate    DateTime          @default(now())
+  message         Message[]
+  userChatMapping UserChatMapping[]
+}
+
+model Contact {
+  id            String  @id @default(uuid())
+  userId        String  @unique
+  nickname      String?
+  blockedStatus Boolean @default(false)
+  user          User    @relation(fields: [userId], references: [id], map: "Contact_userId_fkey")
+}
+
+model Message {
+  id          String   @id @default(uuid())
+  chatId      String
+  senderId    String   @unique
+  text        String
+  type        String   @default("text")
+  timestamp   DateTime @default(now())
+  readReceipt Boolean  @default(false)
+  chat        Chat     @relation(fields: [chatId], references: [id], map: "Message_chatId_fkey")
+  user        User     @relation(fields: [senderId], references: [id], map: "Message_senderId_fkey")
+
+  @@index([chatId], map: "Message_chatId_fkey")
+}
+
+model User {
+  id              String            @id @default(uuid())
+  username        String            @unique
+  passwordHash    String
+  phoneNumber     String            @unique
+  lastSeen        DateTime?
+  status          String?
+  contact         Contact?
+  message         Message?
+  userChatMapping UserChatMapping[]
+}
+
+model UserChatMapping {
+  userId String
+  chatId String
+  chat   Chat   @relation(fields: [chatId], references: [id], map: "UserChatMapping_chatId_fkey")
+  user   User   @relation(fields: [userId], references: [id], map: "UserChatMapping_userId_fkey")
+
+  @@id([userId, chatId])
+  @@index([chatId], map: "UserChatMapping_chatId_fkey")
+}
+
+// https://stackoverflow.com/questions/23263698/mysql-case-sensitive-view-name
+view existing_chats {
+  firstUser  String @unique
+  chatId     String 
+  secondUser String @unique
+
+}

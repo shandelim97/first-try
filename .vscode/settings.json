@@ -1,0 +1,27 @@
+{
+    "css.customData": [".vscode/tailwind.json"],
+    "css.lint.unknownAtRules": "ignore",
+    // "editor.codeActionsOnSave": {
+    //     "source.organizeImports": "explicit"
+    // },
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    //  for tailwind's intellisense
+    "editor.quickSuggestions": {
+        "strings": "on"
+    },
+    "files.associations": {
+        "*.css": "tailwindcss"
+    },
+    // "[prisma]": {
+    //   "editor.defaultFormatter": "Prisma.prisma"
+    // },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.tabWidth": 4,
+    "editor.tabSize": 4
+}

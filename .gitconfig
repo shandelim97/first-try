@@ -1,0 +1,5 @@
+[credential]
+    helper = !aws codecommit credential-helper $@ 
+    UseHttpPath = true  
+[url "git@github.com:"]
+    insteadOf = https://github.com/
